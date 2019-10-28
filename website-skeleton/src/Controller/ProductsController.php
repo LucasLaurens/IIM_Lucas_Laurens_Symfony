@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 // use App\Entity\Product;
+
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,23 +20,34 @@ class ProductsController extends AbstractController
     }
 
     /**
-     * @Route("/biens", name="products.index")
+     * @Route("/products", name="products.index")
+     * @param Product $product
      * @return Response
      */
     public function index(): Response
     {
-        // $products = new Product();
-        // $products->setTitle('Iphone 11')
-        //     ->setDescription('64G')
-        //     ->setPrice(2000);
-
-        // $em = $this->getDoctrine()->getManager();
-        // $em->persist($products);
-        // $em->flush();
         $products = $this->repo->findAll();
         dump($products);
         return $this->render('products/index.html.twig', [
             'current_menu' => 'products'
+        ]);
+    }
+
+    /**
+     * @Route("/products/{slug}-{id}", name="products.show", requirements={"slug": "[a-z0-9\-]*"})
+     * @return Response
+     */
+    public function show(Product $product, string $slug): Response
+    {
+        if ($product->getSlug() !== $slug) {
+            return $this->redirectToRoute('product.show', [
+                'id' => $product->getId(),
+                'slug' => $product->getSlug(),
+            ], 301);
+        }
+        return $this->render('products/show.html.twig', [
+            'current_menu' => 'products',
+            'product' => $product
         ]);
     }
 }
