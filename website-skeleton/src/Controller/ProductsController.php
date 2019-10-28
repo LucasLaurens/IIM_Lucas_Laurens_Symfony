@@ -15,6 +15,8 @@ class ProductsController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('products/index.html.twig');
+        return $this->render('products/index.html.twig', [
+            'current_menu' => 'products'
+        ]);
     }
 }
