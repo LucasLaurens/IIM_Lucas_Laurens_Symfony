@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Editer les biens' %}
+
+
+{% block body %}
+    <div class="container mt-4">
+
+        <h2>Editer</h2>
+
+        {{form_start(form)}}
+        <div>
+            <div class="row">
+                <div class="col-md-4">
+                    {{form_row(form.title)}}
+                </div>
+                <div class="col-md-4">
+                    {{form_row(form.price)}}
+                </div>
+                <div class="col-md-4">
+                    {{form_row(form.description)}}
+                </div>
+
+
+            </div>
+            {{form_rest(form)}}
+            <button class="btn btn-primary">Editer</button>
+        </div>
+        {{form_end(form)}}
+
+
+    </div>
+{% endblock %}

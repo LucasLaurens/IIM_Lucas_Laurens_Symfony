@@ -14,7 +14,7 @@ class ProductsController extends AbstractController
 {
     private $repo;
 
-    public function __constuct(ProductRepository $repo)
+    public function __construct(ProductRepository $repo)
     {
         $this->repo = $repo;
     }
@@ -40,7 +40,7 @@ class ProductsController extends AbstractController
     public function show(Product $product, string $slug): Response
     {
         if ($product->getSlug() !== $slug) {
-            return $this->redirectToRoute('product.show', [
+            return $this->redirectToRoute('products.show', [
                 'id' => $product->getId(),
                 'slug' => $product->getSlug(),
             ], 301);
