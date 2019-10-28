@@ -47,4 +47,12 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findLatest()
+    {
+        return $this->createQueryBuilder('p')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
 }
