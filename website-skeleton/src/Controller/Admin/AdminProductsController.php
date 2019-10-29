@@ -36,7 +36,8 @@ class AdminProductsController extends AbstractController
     /**
      * @Route("/admin/products/new", name="admin.products.new")
      * @param Product $product
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function new(Request $request): Response
     {
@@ -57,9 +58,10 @@ class AdminProductsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/products/{id}", name="admin.products.edit")
+     * @Route("/admin/products/{id}", name="admin.products.edit", methods="GET|POST")
      * @param Product $product
-     * @return Response
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function edit(Product $product, Request $request): Response
     {
@@ -75,5 +77,20 @@ class AdminProductsController extends AbstractController
             'product' => $product,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/admin/products/{id}", name="admin.products.delete", methods="DELETE")
+     * @param Product $product
+     * @param Request $req
+     * @return RedirectResponse
+     */
+    public function delete(Product $product, Request $req)
+    {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $req->get('_token'))) {
+            $this->em->remove($product);
+            $this->em->flush();
+        }
+        return $this->redirectToRoute('admin.products.index');
     }
 }
