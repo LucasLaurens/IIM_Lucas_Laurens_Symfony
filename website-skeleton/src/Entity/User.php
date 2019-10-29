@@ -56,11 +56,17 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    /**
+     * @return (Role|String)[] The user roles
+     */
     public function getRoles()
     {
         return ['ROLE_ADMIN'];
     }
 
+    /**
+     * @return string|null The salt
+     */
     public function getSalt()
     {
         return null;
