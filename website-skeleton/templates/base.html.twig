@@ -20,7 +20,19 @@
                         <li class="nav-item active">
                             <a class="nav-link {% if current_menu is defined and current_menu == " products" %} active {% endif %}" href="{{ path('products.index') }}">Les biens</a>
                         </li>
+                        <li class="nav-item active">
+                            <a class="nav-link {% if current_menu is defined and current_menu == " productsindex" %} active {% endif %}" href="{{ path('products.orderIndex') }}">Les biens triés par prix</a>
+                        </li>
+
                     </ul>
+                    {% if app.user %}
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a href="{{path('logout')}}" class="nav-link">Se déconnecter</a>
+                            </li>
+                        </ul>
+
+                    {% endif %}
                 </div>
             </nav>
 

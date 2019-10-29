@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Voir les biens' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Les biens</h1>
+
+        <h2>Triés par prix</h2>
+
+        {% for productPrice in productsPrice %}
+            <div class="col-4">
+                {{productPrice.title}}
+                {{productPrice.price}}
+
+            </div>
+        {% endfor %}
+
+
+    </div>
+{% endblock %}

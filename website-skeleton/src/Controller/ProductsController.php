@@ -27,9 +27,23 @@ class ProductsController extends AbstractController
     public function index(): Response
     {
         $products = $this->repo->findAll();
-        dump($products);
         return $this->render('products/index.html.twig', [
-            'current_menu' => 'products'
+            'current_menu' => ' products',
+            'products' => $products
+        ]);
+    }
+
+    /**
+     * @Route("/orderProducts", name="products.orderIndex")
+     * @param Product $product
+     * @return Response
+     */
+    public function orderIndex(): Response
+    {
+        $products =  $this->repo->findByPrice();
+        return $this->render('products/index.html.twig', [
+            'current_menu' => ' productsindex',
+            'products' => $products,
         ]);
     }
 

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminProductsController extends AbstractController
@@ -48,6 +49,7 @@ class AdminProductsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($product);
             $this->em->flush();
+            $this->addFlash('success', 'Produit créé avec succès');
             return $this->redirectToRoute('admin.products.index');
         }
 
@@ -70,6 +72,7 @@ class AdminProductsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->flush();
+            $this->addFlash('success', 'Produit modifié avec succès');
             return $this->redirectToRoute('admin.products.index');
         }
 
@@ -90,6 +93,7 @@ class AdminProductsController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $req->get('_token'))) {
             $this->em->remove($product);
             $this->em->flush();
+            $this->addFlash('success', 'Produit supprimé avec succès');
         }
         return $this->redirectToRoute('admin.products.index');
     }

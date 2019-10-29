@@ -5,6 +5,23 @@
 {% block body %}
     <div class="container mt-4">
         <h1>Les biens</h1>
-        <p>lorem ipsum</p>
+
+        {% for product in products %}
+            <div class="col-3 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{{ path('products.show', {id: product.id, slug: product.slug}) }}">{{product.title}}</a>
+                        </h5>
+                        <p class="card-text">{{product.description}}</p>
+                        <div class="text-danger" style="font-weight: bold; font-size: 2rem;">
+                            {{product.price}}
+                            €
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
     </div>
 {% endblock %}
